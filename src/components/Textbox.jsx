@@ -1,55 +1,56 @@
 import { doc, getDoc, onSnapshot, serverTimestamp, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import { db } from '../firebase';
+import Footer from './Footer';
+import { useLocation } from 'react-router-dom';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'
+import { Button }  from '@chakra-ui/react';
+import Circle from './Circle';
+import { debounce } from 'lodash';
 // import {doc} from 'firebase/firestore';
 
-const Textbox = () => {
+const Textbox = ({setProgress}) => {
 
     let [val,setVal] = useState("");
+    const location = useLocation();
+    const [docId , setDocId] = useState((location.pathname === '/global') ? import.meta.env.VITE_GLOBAL_DOC : import.meta.env.VITE_PRIVATE_DOC)
 
-    // useEffect(() => {
-      
-    //   const Effect = async() =>
-    //   {
-    //     const docRef = doc(db, "text","5WtJbwk4e5p5899Z9PzK");
-    //     const docSnap = await getDoc(docRef);
+    useEffect(() =>{
+      setProgress(20)
+      setTimeout(()=>{
+          setProgress(60)
+      },500)
+      setTimeout(() => setProgress(100), 700)
+    },[])
 
-    //     if(docSnap.exists())
-    //     {
-    //       setVal(docSnap.data().textdata)
-
-    //     }else
-    //     {
-    //       console.log("Bruh!!");
-    //     }
-    //   }
-
-    //   return () =>
-    //   {
-    //     Effect()
-    //   }
-    // },[]);
-
-    const unsub = onSnapshot(doc(db, "text","5WtJbwk4e5p5899Z9PzK"), (doc) =>
+    const unsub = onSnapshot(doc(db, "text",docId), (doc) =>
     {
       const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
       setVal(doc.data().textdata)
     })
+    
+    const setHandleChange = (s) => {
 
-    const setHandleChange = async(s) =>
-    {
-      setVal(s);
+      setVal(s)
 
-      await updateDoc(doc(db,"text","5WtJbwk4e5p5899Z9PzK"),{
+      updateDoc(doc(db, "text", docId), {
         textdata: s,
-        timestamp: serverTimestamp()
-      })
-    }
+        timestamp: serverTimestamp(),
+      });
+    };
 
   return (
-    <div className='textbox'>
-        <textarea name="text-field" className='text-field' onChange={(ev) => setHandleChange(ev.target.value)} value={val}></textarea>
+    <>
+    <div className='another'>
+    <div className='block'>
+    {/* <div className='textbox'> */}
+        <textarea name="text-field" className=' text-field' onChange={(ev) => setHandleChange(ev.target.value)} value={val}></textarea>
+    {/* </div> */}
     </div>
+    </div>
+    <Footer/>
+    </>
   )
 }
 

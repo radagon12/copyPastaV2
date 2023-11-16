@@ -1,58 +1,222 @@
-*{
+* {
     margin: 0;
     padding: 0;
-    font-family: 'Lato', sans-serif;
+    font-family: "Lato", sans-serif;
     font-size: 17px;
     box-sizing: border-box;
-}
-
-html
-{
-    --text-color-normal: hsl(210, 10%, 62%);
-    --text-color-light: hsl(214, 15%, 21%);
+  }
+  
+  html {
+    --text-color-normal: white;
+    --text-color-light: linear-gradient(0deg, #f0f0f0, #e0e0e0);
     --text-color-richer: hsl(210, 50%, 72%);
     --text-color-highlight: hsl(25, 70%, 45%);
-}
-
-.header
-{
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+  }
+  
+  .block {
+    position: relative;
+    margin-bottom: 10px;
+    width: 70%;
+    height: 100%;
+    padding: 20px;
+    background: linear-gradient(0deg, #000, #272727);
+    border-radius: 10px;
+  }
+  
+  .block:before,
+  .block:after {
+    content: '';
+    border-radius: 10px;
+    position: absolute;
+    left: -2px;
+    top: -2px;
+    background: linear-gradient(
+      45deg,
+      #fb0094,
+      #0000ff,
+      #00ff00,
+      #ffff00,
+      #ff0000,
+      #fb0094,
+      #0000ff,
+      #00ff00,
+      #ffff00,
+      #ff0000
+    );
+    background-size: 400%;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    z-index: -1;
+    animation: steam 20s linear infinite;
+  }
+  
+  @keyframes steam {
+    0% {
+      background-position: 0 0;
+    }
+    50% {
+      background-position: 400% 0;
+    }
+    100% {
+      background-position: 0 0;
+    }
+  }
+  
+  .block:after {
+    filter: blur(50px);
+  }
+  
+  .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
     background: var(--text-color-light);
     color: white;
-}
-
-.textbox
-{
+  }
+  
+  .another {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+    height: calc(97vh - 80px);
+    position: relative;
+  }
+  
+  .textbox {
     background-color: var(--text-color-normal);
     height: calc(97vh - 80px);
     display: flex;
     justify-content: center;
     align-items: center;
-    /* position: relative; */
-}
-
-.text-field
-{
-    height: 90%;
-    width: 70%;
+    position: absolute;
+    width: 100%; /* Adjusted width for mobile devices */
+    position: relative;
+  }
+  
+  div.content p {
+    line-height: 1.7rem;
+    margin: 30px 0;
+  }
+  
+  div.content li {
+    margin-bottom: 10px;
+  }
+  
+  .circle,
+  .circle::before {
+    content: ' ';
+    margin: 15px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin: 0 auto;
+    transition: all 0.3s;
+    background-color: #ff0055;
+  }
+  
+  .circle::before {
+    animation: mymove 2s infinite;
+    margin: 15px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin: 0 auto;
+    background-color: #00ff00;
+  }
+  
+  @-webkit-keyframes mymove {
+    50% {
+      transform: scale(2);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+  
+  .Home {
+    background-color: #12202d;
+    height: calc(97vh - 80px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .text-field {
+    height: 100%;
+    width: 100%;
+    background: transparent;
     outline: none;
-    box-shadow: 5px 10px;
-    position:relative;
-    padding: 20px;
-    resize: none;
-    border-radius: 8px;
     font-size: 24px;
-    font-family: 'Consolas', monospace;
-}
-
-.footer
-{
+    font-family: 'Inconsolata', monospace;
+    font-family: 'Open Sans', sans-serif;
+    color: var(--text-color-normal);
+    resize: none;
+  }
+  
+  .footer {
     justify-content: center;
     display: flex;
+    align-items: center;
     padding-top: 1vh;
     background-color: lightslategrey;
-    height: 40px;
-}
+    height: 33px;
+  }
+  
+  .container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .circle,
+  .circle::before {
+    content: ' ';
+    margin: 15px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin: 0 auto;
+    transition: all 0.3s;
+    background-color: #ff0055;
+  }
+  
+  .circle::before {
+    animation: mymove 2s infinite;
+    position: absolute;
+    background-color: #00ff00;
+  }
+  
+  @-webkit-keyframes mymove {
+    50% {
+      transform: scale(2);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+  
+  @media screen and (max-width: 600px) {
+    .block {
+      width: 90%;
+    }
+  
+    .text-field {
+      width: 100%;
+      font-size: 18px;
+    }
+  }
+  
